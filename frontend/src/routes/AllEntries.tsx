@@ -1,7 +1,7 @@
-import {useContext} from 'react'
-import { EntryContext } from '../utilities/globalContext'
-import { EntryContextType, Entry } from '../@types/context'
-import { useNavigate, Link } from "react-router-dom";
+import { useContext } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { Entry, EntryContextType } from '../@types/context';
+import { EntryContext } from '../utilities/globalContext';
 
 export default function AllEntries(){
     const {entries, deleteEntry} = useContext(EntryContext) as EntryContextType
@@ -26,7 +26,7 @@ export default function AllEntries(){
                             <button onClick={()=> {deleteEntry(entry.id as string)}} className="m-1 md:m-2 p-1 font-semibold rounded-md bg-red-500 hover:bg-red-700">✖</button>
                             <button onClick={()=> {navigate(`/edit/${entry.id}`, { replace: true });}} className="m-1 md:m-2 p-1 font-semibold rounded-md bg-blue-500 hover:bg-blue-700">🖊</button>
                         </div>
-                        <time className="text-right text-sm md:text-lg">{new Date(entry.created_at.toString()).toLocaleDateString()}</time>
+                        <p className="italic text-right text-lg font-light md:mt-2 md:mb-4 mt-1 mb-3">Scheduled for: <time className="font-light text-right text-sm md:text-lg">{new Date(entry.scheduledDate.toString()).toLocaleDateString()}</time></p>
                         </section>
                         
                     </div>
