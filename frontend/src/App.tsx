@@ -1,18 +1,18 @@
-import React from "react";
-import NavBar from './components/NavBar'
-import AllEntries from './routes/AllEntries'
-import NewEntry from './routes/NewEntry'
-import EditEntry from './routes/EditEntry'
-import { EntryProvider } from './utilities/globalContext'
 import {
+  Route,
   BrowserRouter as Router,
-  Routes,
-  Route
+  Routes
 } from "react-router-dom";
+import NavBar from './components/NavBar';
+import AllEntries from './routes/AllEntries';
+import EditEntry from './routes/EditEntry';
+import NewEntry from './routes/NewEntry';
+import { EntryProvider, useGlobalContext } from './utilities/globalContext';
 
 export default function App() {
+  const {darkMode} = useGlobalContext();
   return (
-    <section>
+    <section className="bg-gray-100 text-black dark:bg-gray-800 dark:text-white min-h-screen">
   <Router>
     <EntryProvider>
     <NavBar></NavBar>
