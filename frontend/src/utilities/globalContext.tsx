@@ -1,6 +1,41 @@
-import {createContext , useState, FC, ReactNode, useEffect} from 'react'
-import {Entry, EntryContextType} from '../@types/context'
-import axios from 'axios'
+import axios from 'axios';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { Entry, EntryContextType } from '../@types/context';
+
+type GlobalContextType = {
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+};
+
+const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
+
+export const GlobalProvider = ({ children }: { children: ReactNode }) => {
+  const [darkMode, setDarkMode] = useState(
+    JSON.parse(localStorage.getItem('darkMode') || 'false')
+  );
+
+  const toggleDarkMode = () => {
+    setDarkMode((prev:boolean) => {
+      localStorage.setItem('darkMode', JSON.stringify(!prev));
+      return !prev;
+    });
+  };
+
+  return (
+    <GlobalContext.Provider value={{ darkMode, toggleDarkMode }}>
+      <div className={darkMode ? 'dark' : ''}>{children}</div>
+    </GlobalContext.Provider>
+  );
+};
+
+export const useGlobalContext = () => {
+  const context = useContext(GlobalContext);
+  if (!context) {
+    throw new Error('useGlobalContext must be used within a GlobalProvider');
+  }
+  return context;
+};
+
 
 export const EntryContext = createContext<EntryContextType | null>(null);
 

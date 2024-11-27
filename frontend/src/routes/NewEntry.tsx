@@ -1,6 +1,6 @@
-import {useState, useContext, ChangeEvent, MouseEvent} from 'react'
-import {EntryContext} from '../utilities/globalContext'
-import {Entry, EntryContextType} from '../@types/context'
+import { ChangeEvent, MouseEvent, useContext, useState } from 'react'
+import { Entry, EntryContextType } from '../@types/context'
+import { EntryContext } from '../utilities/globalContext'
 
 export default function NewEntry(){
     const emptyEntry: Entry = {title: "", description: "",created_at: new Date()}
@@ -17,7 +17,7 @@ export default function NewEntry(){
         setNewEntry(emptyEntry)
     }
     return(
-        <section className="flex justify-center flex-col w-fit ml-auto mr-auto mt-10 gap-5 bg-gray-300 p-8 rounded-md">
+        <section className="text-black flex justify-center flex-col w-fit ml-auto mr-auto mt-10 gap-5 bg-gray-300 p-8 rounded-md">
             <input className="p-3 rounded-md" type="text" placeholder="Title" name="title" value={newEntry.title} onChange={handleInputChange}/>
             <textarea className="p-3 rounded-md" placeholder="Description" name="description" value={newEntry.description} onChange={handleInputChange}/>
             <input className="p-3 rounded-md" type="date" name="created_at" value={(new Date(newEntry.created_at)).toISOString().split('T')[0]} onChange={handleInputChange}/>
